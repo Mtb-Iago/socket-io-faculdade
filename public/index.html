@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
+    <title>Socket</title>
+</head>
+<body>
+
+    <header>
+        <ul>
+            <li>Ifba</li>
+            <li>Disciplina: <strong>Sistemas Distribuídos</strong></li>
+            <li>Ano/Semestre: <strong>2021.2</strong></li>
+            <li>Doscente: <strong>Leonardo Barreto</strong></li>
+            <li>Disicente: <strong>Iago da Silva Oliveira</strong></li>
+            <li>Disicente: <strong>Yullo Costa Bomfim</strong></li>
+        </ul>
+    </header>
+       
+    <input type="text" id="field" placeholder="Digite as letras para o servidor ouvir">
+
+    
+    <script type="text/javascript">
+        var socket = io('http://localhost:3000')
+
+        var field = document.querySelector('#field')
+        
+        field.addEventListener('keyup', function (event) {
+            const message = field.value
+            const key = event.key;
+            const code = event.keyCode;
+            //console.log(`Key: ${key}, Code ${code}`);
+
+            var object_message = {
+                'key': key,
+                'code': code,
+                'message': message
+            }
+            socket.emit('handle-message', object_message)
+        });
+
+    </script>
+</body>
+</html>
